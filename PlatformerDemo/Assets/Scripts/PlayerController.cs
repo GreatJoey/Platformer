@@ -68,6 +68,5 @@ public class PlayerController : MonoBehaviour
 
         //Vector2 newVelocity = new Vector2(0, YVelocity);
        /// RigidBody.AddForce(newVelocity);
-       /// just a test comment
     }
 }
