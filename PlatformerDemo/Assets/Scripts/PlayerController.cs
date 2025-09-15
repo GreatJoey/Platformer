@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        OnGround = GroundCollider.IsTouchingLayers(LayerMask.GetMask("Enviroment"));
         PlayerMovement();
     }
 
