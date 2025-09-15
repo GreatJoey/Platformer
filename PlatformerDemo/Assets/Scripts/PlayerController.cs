@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
         }
         RigidBody.linearVelocityX = XVelocity * Time.fixedDeltaTime;
 
-        Vector2 newVelocity = new Vector2(0, YVelocity);
-        RigidBody.AddForce(newVelocity);
+        //Vector2 newVelocity = new Vector2(0, YVelocity);
+       /// RigidBody.AddForce(newVelocity);
     }
 }
