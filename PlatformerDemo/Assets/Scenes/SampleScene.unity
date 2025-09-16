@@ -637,6 +637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a5a82d3027f541babb6d505db62a22e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  _animator: {fileID: 0}
 --- !u!70 &832921618
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -671,8 +672,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 1}
+  m_Offset: {x: -0.000000009178447, y: -0.076994404}
+  m_Size: {x: 1.1539899, y: 1.1539899}
   m_Direction: 1
 --- !u!50 &832921619
 Rigidbody2D:
