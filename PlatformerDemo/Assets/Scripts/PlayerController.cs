@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private SMScript _sound_manager;
     Rigidbody2D RigidBody;
     CapsuleCollider2D GroundCollider;
 
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
     float XVelocity;
     float YVelocity;
     float speed = 300;
+    float Base_speed = 300;
     float JumpSpeed = 1000;
 
     bool OnGround = false;
@@ -50,6 +52,15 @@ public class PlayerController : MonoBehaviour
         fsm.AddState(new AnimationFSM.IdleState("Idle"));
 
         sprite = GetComponent<SpriteRenderer>();
+
+        if (_sound_manager == null)
+        {
+            GameObject sm_obj = GameObject.Find("SoundManger");
+            if (sm_obj != null)
+            {
+                _sound_manager = sm_obj.GetComponent<SMScript>();
+            }
+        }
     }
 
     void Update()
@@ -108,10 +119,47 @@ public class PlayerController : MonoBehaviour
         {
             RigidBody.linearVelocityY = JumpSpeed * Time.fixedDeltaTime;
             JumpTriggered = false;
+            if (_sound_manager != null)
+            {
+                _sound_manager.JumpSound();
+            }
         }
         RigidBody.linearVelocityX = XVelocity * Time.fixedDeltaTime;
 
         //Vector2 newVelocity = new Vector2(0, YVelocity);
-       /// RigidBody.AddForce(newVelocity);
+        /// RigidBody.AddForce(newVelocity);
+    }
+
+    // Buff section
+    public void ApplyBigBuff(float multiplier, float duration, float increase_duration)
+    {
+        StartCoroutine(BigbuffRoutine(multiplier, duration, increase_duration));
+    }
+    private IEnumerator BigbuffRoutine(float multiplier, float duration, float increase_duration)
+    {
+        Vector3 originalScale = transform.localScale;
+        Vector3 targetScale = originalScale * multiplier;
+        float elapse = 0f;
+
+        while (elapse < increase_duration)
+        {
+            transform.localScale = Vector3.Lerp(originalScale, targetScale, elapse / increase_duration);
+            elapse += Time.deltaTime;
+            yield return null;
+        }
+        yield return new WaitForSeconds(duration);
+
+        transform.localScale = originalScale;
+    }
+
+    public void ApplySpeedBuff(float multiplier, float duration)
+    {
+        StartCoroutine(SpeedBuffRoutine(multiplier, duration));
+    }
+    private IEnumerator SpeedBuffRoutine(float multiplier, float duration)
+    {
+        speed *= multiplier;
+        yield return new WaitForSeconds(duration);
+        speed = Base_speed;
     }
 }
