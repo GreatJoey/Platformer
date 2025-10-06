@@ -4,9 +4,11 @@ using System.Collections;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    public Text speed_display;
     [SerializeField] private SMScript _sound_manager;
     Rigidbody2D RigidBody;
     CapsuleCollider2D GroundCollider;
@@ -33,6 +35,20 @@ public class PlayerController : MonoBehaviour
     bool OnGround = false;
     bool JumpTriggered = false;
 
+    public void DisplaySpeed(float speed) // there is a text mesh pro problem in here
+    {
+        this.speed_display.text = speed_display.ToString();
+
+    }
+/* should move this to test script
+    public void reset_position()
+    {
+        RigidBody.position = Vector3.zero;
+        RigidBody.veloctiy = Vector3.zero;
+
+        AutoMove();
+    }
+*/ 
     void Awake()
     {
         MoveRight = InputSystem.actions.FindAction("MoveRight");
