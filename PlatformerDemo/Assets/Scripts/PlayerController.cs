@@ -5,11 +5,9 @@ using NUnit.Framework;
 using NUnit.Framework.Constraints;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
-    public TMPro.TMP_Text speed_display;
     [SerializeField] private SMScript _sound_manager;
     Rigidbody2D RigidBody;
     CapsuleCollider2D GroundCollider;
@@ -29,27 +27,13 @@ public class PlayerController : MonoBehaviour
 
     float XVelocity;
     float YVelocity;
-    float speed = 300;
+    float speed = 1;
     float Base_speed = 300;
     float JumpSpeed = 1000;
 
     bool OnGround = false;
     bool JumpTriggered = false;
 
-    public void DisplaySpeed(float speed) // there is a text mesh pro problem in here
-    {
-        speed_display.text = speed.ToString();
-
-    }
-/* should move this to test script
-    public void reset_position()
-    {
-        RigidBody.position = Vector3.zero;
-        RigidBody.veloctiy = Vector3.zero;
-
-        AutoMove();
-    }
-*/ 
     void Awake()
     {
         MoveRight = InputSystem.actions.FindAction("MoveRight");
@@ -82,7 +66,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        DisplaySpeed(speed);
         OnGround = GroundCollider.IsTouchingLayers(LayerMask.GetMask("Enviroment"));
 
         fsm.Update();
@@ -110,6 +93,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        speed = speed * 2;
         OnGround = GroundCollider.IsTouchingLayers(LayerMask.GetMask("Enviroment"));
         PlayerMovement();
     }
