@@ -5,10 +5,11 @@ using NUnit.Framework;
 using NUnit.Framework.Constraints;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
-    public Text speed_display;
+    public TMPro.TMP_Text speed_display;
     [SerializeField] private SMScript _sound_manager;
     Rigidbody2D RigidBody;
     CapsuleCollider2D GroundCollider;
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
     public void DisplaySpeed(float speed) // there is a text mesh pro problem in here
     {
-        this.speed_display.text = speed_display.ToString();
+        speed_display.text = speed.ToString();
 
     }
 /* should move this to test script
@@ -81,6 +82,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        DisplaySpeed(speed);
         OnGround = GroundCollider.IsTouchingLayers(LayerMask.GetMask("Enviroment"));
 
         fsm.Update();
