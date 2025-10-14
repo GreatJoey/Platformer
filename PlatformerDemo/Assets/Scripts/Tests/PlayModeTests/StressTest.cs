@@ -9,12 +9,10 @@ public class StressTest : InputTestFixture
 {
     GameObject player;
     Rigidbody2D RigidBody;
-    Keyboard keyboard;
+//    Keyboard keyboard;
     TestMovement movement;
 
     public float fail_position = 6.0f;
-
-    private int test_num;
 
     [UnitySetUp]
     public IEnumerator SetUp()
@@ -26,7 +24,7 @@ public class StressTest : InputTestFixture
         player = GameObject.Find("Player");
         RigidBody = player.AddComponent<Rigidbody2D>();
 
-        keyboard = InputSystem.AddDevice<Keyboard>();
+//        keyboard = InputSystem.AddDevice<Keyboard>();
 
         movement = player.AddComponent<TestMovement>();
         movement.RigidBody = RigidBody;
@@ -35,21 +33,15 @@ public class StressTest : InputTestFixture
         var camera = camera_object.AddComponent<Camera>();
         camera.orthographic = true;
         camera.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10);
-
+/*
         var sprite = player.AddComponent<SpriteRenderer>();
 
         var collider = player.AddComponent<CapsuleCollider2D>();
         var animator = player.AddComponent<Animator>();
-
+*/
         yield return null;
     }
-/*
-    public void reset_position()
-    {
-        RigidBody.position = Vector3.zero;
-        RigidBody.velocity = Vector3.zero;
-    }
-*/
+
     [UnityTest]
     public IEnumerator MoveForward()
     {
@@ -58,7 +50,7 @@ public class StressTest : InputTestFixture
         int multiplier = 2;
         while (true)
         {
-            Press(keyboard.dKey);
+//            Press(keyboard.dKey);
             Vector3 start_position = player.transform.position;
             for (int i = 0; i < max_frames; i++)
             {
@@ -69,7 +61,6 @@ public class StressTest : InputTestFixture
             {
                 movement.speed = movement.speed * multiplier;
                 Debug.Log("Doubling the speed");
-                test_num++;
                 movement.hit_wall = false;
             }
 
@@ -80,7 +71,7 @@ public class StressTest : InputTestFixture
                 break;
             }
         }
-        Release(keyboard.dKey);
+ //       Release(keyboard.dKey);
         yield return null;
     }
 
